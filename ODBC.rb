@@ -124,7 +124,8 @@ class Database < DBI::BaseDatabase
       info['type_name'] = row['TYPE_NAME']
       info['sql_type']  = row['DATA_TYPE']
       info['nullable']  = row['NULLABLE']  
-      info['precision'] = row['COLUMN_SIZE'] - (row['DECIMAL_DIGITS'] || 0)
+      cs = row['COLUMN_SIZE']
+      info['precision'] = cs ? (cs - (row['DECIMAL_DIGITS'] || 0)) : nil
       info['scale']     = row['DECIMAL_DIGITS']
     end
 
